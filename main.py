@@ -1,6 +1,6 @@
-def main():
-    print("Hello from bot-discord!")
-
+from bot.bot import *
+from settings import TOKEN
 
 if __name__ == "__main__":
-    main()
+    bot = Bot()
+    bot.run(TOKEN)
