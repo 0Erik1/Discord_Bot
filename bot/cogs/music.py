@@ -18,21 +18,6 @@ class Music(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    async def join(self, ctx):
-        if ctx.author.voice:
-            channel = ctx.author.voice.channel
-            await channel.connect()
-        else:
-            await ctx.send("Você precisa estar em um canal de voz!")
-
-    @commands.command()
-    async def leave(self, ctx):
-        if ctx.voice_client:
-            await ctx.voice_client.disconnect()
-        else:
-            await ctx.send("O bot não está em nenhum canal!")
-
-    @commands.command()
     async def play(self, ctx, url):
         if not ctx.voice_client:
             if ctx.author.voice:
