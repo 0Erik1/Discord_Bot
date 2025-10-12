@@ -8,5 +8,5 @@ dependencies = [
     "discord-py>=2.6.3",
     "pynacl>=1.6.0",
     "python-dotenv>=1.1.1",
-    "yt-dlp>=2025.9.5",
+    "yt-dlp>=2025.9.26",
 ]
