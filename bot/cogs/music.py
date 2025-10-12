@@ -34,18 +34,22 @@ class Music(commands.Cog):
             if self.index < len(self.queue):
                 info = ytdl.extract_info(self.queue[self.index], download=True) #sempre baixa o atual
                 filename = ytdl.prepare_filename(info)  # caminho do arquivo baixado
+                if not filename or not os.path.exists(filename):
+                    print("Falha ao baixar o áudio, pulando...")
+                    return
             
                 # toca a música
                 source = discord.FFmpegPCMAudio(filename)
                 voice_client.play(source, after=after_playing)
             else:
                 folder = "bot/data/songs"
-
+                self.index = 0
+                self.queue.clear()
                 for filename in os.listdir(folder):
                     file_path = os.path.join(folder, filename)
                     if os.path.isfile(file_path):
                         os.remove(file_path)
-                        
+
         #verifica se está em um canal para conectar
         if not ctx.voice_client:
             if ctx.author.voice:
@@ -68,6 +72,10 @@ class Music(commands.Cog):
             info = ytdl.extract_info(self.queue[self.index], download=True) #sempre baixa o atual
             filename = ytdl.prepare_filename(info)  # caminho do arquivo baixado
 
+            if not filename or not os.path.exists(filename):
+                    print("Falha ao baixar o áudio, pulando...")
+                    return
+
             # toca a música
             source = discord.FFmpegPCMAudio(filename)
             voice_client.play(source, after=after_playing)
@@ -81,7 +89,8 @@ class Music(commands.Cog):
             await ctx.send("Música parada!")
 
             folder = "bot/data/songs"
-
+            self.index = 0
+            self.queue.clear()
             for filename in os.listdir(folder):
                 file_path = os.path.join(folder, filename)
                 if os.path.isfile(file_path):
