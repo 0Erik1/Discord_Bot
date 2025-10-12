@@ -34,11 +34,6 @@ class Music(commands.Cog):
             if self.index < len(self.queue):
                 info = ytdl.extract_info(self.queue[self.index], download=True) #sempre baixa o atual
                 filename = ytdl.prepare_filename(info)  # caminho do arquivo baixado
-
-                if filename.endswith(".part"):
-                    print(f"Arquivo {filename} ainda não terminou de baixar, pulando...")
-                    self.index += 1
-                    return
             
                 # toca a música
                 source = discord.FFmpegPCMAudio(filename)
@@ -50,6 +45,7 @@ class Music(commands.Cog):
                     file_path = os.path.join(folder, filename)
                     if os.path.isfile(file_path):
                         os.remove(file_path)
+                        
         #verifica se está em um canal para conectar
         if not ctx.voice_client:
             if ctx.author.voice:
@@ -63,28 +59,15 @@ class Music(commands.Cog):
 
         if not voice_client.is_playing():
 
+            info = ytdl.extract_info(url, download=False)
+            if "duration" in info and info["duration"] > 600:  # 600 segundos = 10 minutos
+                await ctx.send("O áudio é muito longo! Máximo permitido: 10 minutos.")
+                return
+
             # Baixa o áudio
             info = ytdl.extract_info(self.queue[self.index], download=True) #sempre baixa o atual
             filename = ytdl.prepare_filename(info)  # caminho do arquivo baixado
 
-            if filename.endswith(".part"):
-                    print(f"Arquivo {filename} ainda não terminou de baixar, pulando...")
-                    self.index += 1
-
-                        # pasta onde estão os downloads
-                    folder = "bot/data/songs"
-
-                    # encontra todos os arquivos .part
-                    part_files = glob.glob(os.path.join(folder, "*.part"))
-
-                    # apaga cada um
-                    for file_path in part_files:
-                        try:
-                            os.remove(file_path)
-                            print(f"Arquivo apagado: {file_path}")
-                        except Exception as e:
-                            print(f"Não foi possível apagar {file_path}: {e}")
-                    return
             # toca a música
             source = discord.FFmpegPCMAudio(filename)
             voice_client.play(source, after=after_playing)
