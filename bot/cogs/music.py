@@ -98,15 +98,5 @@ class Music(commands.Cog):
         else:
             await ctx.send("Não há música tocando agora.")
 
-    # @commands.command()
-    # async def skip(self, ctx):
-    #     voice_client = ctx.voice_client
-    #     if voice_client and voice_client.is_playing():
-    #         self.index += 1
-            
-    #         await ctx.send("Música pulada!")
-    #     else:
-    #         await ctx.send("Não há música tocando para pular.")
-
 async def setup(bot):
     await bot.add_cog(Music(bot))
