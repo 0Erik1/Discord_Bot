@@ -7,7 +7,7 @@ O projeto não tem foco em produção — é um ambiente de testes e aprendizado
 
 ## 🚀 Objetivo
 
-Este projeto nasceu de curiosidade e vontade de experimentar:
+Este projeto tem como objetivo apenas matar a minha curiosidade e vontade de experimentar:
 - O funcionamento do **discord.py** e seus recursos de áudio.
 - Os recursos do **astral-uv**.
 - A criação e execução de bots de forma mais moderna e rápida no Python.
@@ -46,3 +46,4 @@ Este projeto nasceu de curiosidade e vontade de experimentar:
 
 - Esse bot funciona perfeitamente?
 - Provavelmente não 😄
+
